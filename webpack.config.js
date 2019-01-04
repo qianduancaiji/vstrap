@@ -16,6 +16,7 @@ module.exports = {
   },
   //出口
   output: {
+	publicPath: '/',
     path: path.resolve(__dirname, 'dist'),
     filename: 'js/[name].bundle.js'
   },
@@ -27,8 +28,7 @@ module.exports = {
 	  //服务端压缩是否开启
 	  compress: true,
 	  port: 8080,
-	  inline: true,
-	  hot: true
+	  inline: true
 	},
 	module: {
 		rules:
@@ -58,7 +58,7 @@ module.exports = {
 	},
 	plugins:
 	[
-		// new webpack.HotModuleReplacementPlugin(),
+		new webpack.HotModuleReplacementPlugin(),
 		new cleanWebpackPlugin(['dist']),
 		new MiniCssExtractPlugin({
 			filename: "css/[name].css",
