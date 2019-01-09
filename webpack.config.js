@@ -44,6 +44,18 @@ module.exports = {
       {
       	test: /\.(jpg|png|gif|jpeg|bmp)$/,
       	use: 'url-loader?limit=50000&name=[hash:8]-[name].[ext]'
+		// use: {
+      	// 	loader: 'file-loader',
+      	// 	options: {
+      	// 		name (file) {
+      	// 			if (exports.mode === 'development') {
+      	// 				return '[path][name].[ext]'
+      	// 			}
+      	// 			return '[hash].[ext]'
+      	// 		},
+      	// 		outputPath: 'images/'
+      	// 	}
+      	// }
       },
 			{
 				test: /\.(ttf|eot|svg|woff|woff2)$/,
@@ -54,6 +66,12 @@ module.exports = {
 				use: 'babel-loader',
 				exclude: /node_modules/
 			}
+			// {
+			// 	test: /\.html$/,
+			// 	use: [{
+			// 		loader: 'html-withimg-loader'
+			// 	}]
+			// }
 		]
 	},
 	plugins:
