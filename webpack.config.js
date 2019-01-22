@@ -9,6 +9,10 @@ module.exports = {
 	devtool: 'eval-source-map',
 	mode: 'development',
 	// mode: 'production',
+	optimization: {
+		runtimeChunk: false,
+		splitChunks: false
+	},
 	//入口
   entry: {
   	index: './src/index.js',
@@ -18,7 +22,8 @@ module.exports = {
   output: {
 	publicPath: '/',
     path: path.resolve(__dirname, 'dist'),
-    filename: 'js/[name].bundle.js'
+    filename: 'js/[name].bundle.js',
+	chunkFilename: 'js/[name].chunk.js'
   },
   devServer: {
   	//服务器根路径
