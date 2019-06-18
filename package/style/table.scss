@@ -1,0 +1,29 @@
+@import './common/global.scss';
+
+@mixin tree-table-icon {
+    font-size: 24px;
+    padding: 5px;
+    color: #007bff;
+}
+
+.vs-table {
+    table-layout: fixed;
+    margin-bottom: 0;
+}
+
+.vs-tree-table-icon {
+    font-family: iconfont;
+    display: inline-block;
+    width: 40px;
+    cursor: pointer;
+    vertical-align: middle;
+}
+
+.vs-tree-table-expend-icon::before {
+    content: '\e671'; 
+    @include tree-table-icon;
+}
+.vs-tree-table-expended-icon::before {
+    content: '\e670';
+    @include tree-table-icon;
+}

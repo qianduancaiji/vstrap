@@ -1,0 +1,22 @@
+@import './common/global.scss';
+
+.vs-select-mutiple {
+	position: relative;
+}
+
+.vs-ul-to-select {
+	position: absolute;
+	display: none;
+	top: 100%;
+	width: 100%;
+	z-index: 9999;
+	background-color: #fff;
+}
+.vs-select-mutiple-option {
+	cursor: pointer;
+	padding: 0 15px;
+}
+.vs-select-mutiple-option:hover {
+	background-color: #1e90ff;
+	color: #fff;
+}
