@@ -17,6 +17,10 @@
                 default: function() {
                     return []
                 }
+            },
+            tree: {
+                type: Boolean,
+                default: false
             }
         },
         provide: function() {
@@ -24,6 +28,7 @@
                 table: this
             }
         },
+
         components: {
             VsTbody,
             VsThead,
@@ -35,12 +40,12 @@
            )
             return (
                 <div>
-                    
                     <vs-thead>
                         { colgroup }
                     </vs-thead>
                     
                     {
+                        this.tree ?
                         this.data.map((rowData, index) => {
                             return (
                                 <table class="table vs-table table-hover">
@@ -49,7 +54,11 @@
                                 </table>
                                 
                             )
-                        })
+                        }) :
+                        <table class="table vs-table table-hover">
+                            { colgroup }
+                            <vs-tbody></vs-tbody>
+                        </table>
                     }
                 </div>
             )

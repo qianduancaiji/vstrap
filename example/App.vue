@@ -16,7 +16,7 @@
 			<vs-button type="dark" plain>dark</vs-button>
 			<vs-button type="link" plain>link</vs-button>
 		</vs-button-group>	
-		<vs-input type="textarea" :rows="6" v-model="select" placeholder="sssssssssssssssssss"></vs-input>
+		<!-- <vs-input type="textarea" :rows="6" v-model="select" placeholder="sssssssssssssssssss"></vs-input>
 		<vs-input type="password" v-model="test" placeholder="sssssssssssssssssss"></vs-input>
 		<vs-input placeholder="sssssssssssssssssss" v-model="test"></vs-input>
 		<vs-select v-model="select">
@@ -32,7 +32,7 @@
 				<vs-option label="3">cccc</vs-option>
 				<vs-option label="4">dddd</vs-option>
 			</vs-select>
-		<hr>
+		<hr> -->
 		
 <!-- 		<vs-checkbox-group>
 			<vs-checkbox>aaaaaaaaaaaa</vs-checkbox>
@@ -102,7 +102,7 @@
 
         <i class="iconfont icon-icon-test61"></i>
         <i class="iconfont icon-icon-test60"></i>
-        <vs-table :data="list" :columns="columns1"></vs-table>
+        <vs-table :data="list" :columns="columns1" :tree="false"></vs-table>
 	</div>
 </template>
 <script> 

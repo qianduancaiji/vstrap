@@ -5,7 +5,7 @@
         name: 'VsTbody',
         props: {
             rowData: {
-                type: Object,
+                type: [Object],
                 default: function() {
                     return {}
                 }
@@ -14,35 +14,8 @@
         inject: {
             table: 'table'
         },
-        data() {
-            return {
-                
-            }
-        },
-        computed: {
-            flatRowData() {
-                let flatData = [];
-
-                (function flat(data, depth) {
-                    data.forEach((item, index) => {
-
-                        let $depth = depth === undefined ? 0 : depth;
-                        item.$depth = $depth
-                        flatData.push(item)
-                        if (item.children && item.children.length !== 0) {
-                            flat(item.children, ++$depth)
-                        } else {
-                            item.$leaf = true
-                        }
-                    })
-                }([this.rowData]))
-                return flatData;
-            }
-        },
         render(h) {
-            console.time('body')
-            let body = this.renderTreeBody();
-            console.timeEnd('body')
+            let body = this.table.tree ? this.renderTreeBody() : this.renderBody();
             return (
                 <tbody>
                     { body }
@@ -122,7 +95,7 @@
                         item.$depth = $depth;
                         let hasChildren = item.children && item.children.length !== 0;
                         item.$leaf = !hasChildren;
-                        let vnode = _this.renderTr(item)
+                        let vnode = _this.renderTreeTr(item)
                         treeVnodes.push(vnode)
                         if (hasChildren) {
                             flat(item.children, ++$depth)
@@ -131,7 +104,26 @@
                 }([this.rowData]))
                 return treeVnodes;
             },
+            renderBody() {
+                return this.table.data.map(item => this.renderTr(item))
+            },
             renderTr(item) {
+                return (
+                    <tr key={ item.id }>
+                    {
+                        this.table.columns.map((column, index) => { 
+                            return (
+                                <td>
+                                    { column.render ? column.render(h, item) : item[column['key']] }
+                                </td>
+                            )
+                        })
+                    }
+                    </tr>
+
+                )
+            },
+            renderTreeTr(item) {
                 return (
                     <tr key={ item.id } 
                         data-level={ item.$depth }
