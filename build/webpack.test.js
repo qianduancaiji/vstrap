@@ -4,6 +4,7 @@ const htmlWebpackPlugin = require('html-webpack-plugin')
 
 const merge = require('webpack-merge');
 const baseConfig = require('./webpack.base');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 let config = {
 	//生产环境去掉
@@ -59,7 +60,13 @@ let config = {
 		    removeComments: true,//去除注释
 		    removeEmptyAttributes: true//去除空属性
 			}*/
-		})
+        }),
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: '[name].css',
+            chunkFilename: '[id].[hash].css',
+        })
 	]
 }
 

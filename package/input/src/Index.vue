@@ -1,36 +1,62 @@
-<!--  -->
+
 <script>
 	export default {
-		name: 'VsInput',
-		props: {
-			type: {
-				type: String,
-				default: 'text',
-				validator: value => ['text', 'password', 'textarea'].includes(value)
-			},
-			placeholder: String,
-			value: String,
-			rows: Number
-		},
-		render: function (h) {
-			const isInput = this.type !== 'textarea'
-			return h(
-				isInput ? 'input' : 'textarea',
-				{
-					class: ['form-control'],
-					attrs: {
-						type: isInput ? this.type : 'text',
-						placeholder: this.placeholder,
-						rows: isInput ? isInput : this.rows
-					},
-					domProps: {
-						value: this.value
-					},
-					on: {
-						input: e => this.$emit('input', e.currentTarget.value)
-					}
-				}
-			)
-		}
+        name: 'VsInput',
+        inject: ['formItem'],
+        props: {
+            name: {
+                type: String
+            },
+            placeholder: {
+                type: String
+            },
+            value: {
+                type: [String, Number],
+                required: true
+            },
+            type: {
+                type: String,
+                validator: function(value) {
+                    return ['text', 'password', 'textarea']
+                },
+                default: 'text'
+            }
+        },
+        render: function(h) {
+            let validatorFields = this.formItem.validatorFields
+            let inputClass = {
+                'form-control': 1,
+                'is-valid': validatorFields.status === 1,
+                'is-invalid': validatorFields.status === -1
+            }
+            let temp = this.type === 'textarea' ? (
+                <textarea
+                    class={ inputClass }
+                    placeholder={ this.placeholder }
+                    value={ this.value }
+                    onBlur={ this.handleBlur }
+                    onInput={ this.handleInput }
+                    name={ this.name }></textarea>
+            ) : (
+                <input 
+                    type={ this.type } 
+                    class={ inputClass }
+                    placeholder={ this.placeholder }
+                    value={ this.value }
+                    onBlur={ this.handleBlur }
+                    onInput={ this.handleInput }
+                    name={ this.name }/>
+            )
+            return temp;
+        },
+        methods: {
+            handleInput(e) {
+                this.$emit('input', e.target.value);
+                this.formItem.$emit('changeValidator', e.target.value);
+            },
+            handleBlur(e) {
+                this.formItem.$emit('blurValidator', e.target.value);
+            }
+        }
 	}
 </script>

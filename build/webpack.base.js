@@ -29,14 +29,14 @@ module.exports = {
 		    },
 		    {
 		      	test: /\.(ttf|eot|svg|woff|woff2)$/,
-                use: 'url-loader',
-                // use: {
-                // 	loader: 'file-loader',
-                // 	options: {
-                //         publicPath: './',
-                // 		outputPath: 'fonts/'
-                // 	}
-                // }
+                use: {
+                	loader: 'file-loader',
+                	options: {
+                        publicPath: './fonts',
+                        outputPath: 'fonts/',
+                        name: '[name].[ext]'
+                	}
+                }
 		    },
 		    {
 		      	test: /\.js$/,
@@ -57,13 +57,7 @@ module.exports = {
     },
     plugins:
 	[
-		new VueLoaderPlugin(),
-        new MiniCssExtractPlugin({
-            // Options similar to the same options in webpackOptions.output
-            // both options are optional
-            filename: 'vstrap.css',
-            chunkFilename: '[id].[hash].css',
-        })
+		new VueLoaderPlugin()
 		// new OptimizeCssAssetsPlugin(),//压缩css
 	]
 }

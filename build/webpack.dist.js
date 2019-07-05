@@ -2,6 +2,7 @@ const path = require('path')
 const cleanWebpackPlugin = require('clean-webpack-plugin');
 const merge = require('webpack-merge');
 const baseConfig = require('./webpack.base');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 let config = {
     devtool: false,
@@ -54,6 +55,12 @@ let config = {
             //"exclude": ["files","to","ignore"]//排除不删除的目录，主要用于避免删除公用的文件
                 
         }),
+        new MiniCssExtractPlugin({
+            // Options similar to the same options in webpackOptions.output
+            // both options are optional
+            filename: 'vstrap.css',
+            chunkFilename: '[id].[hash].css',
+        })
 		// new OptimizeCssAssetsPlugin(),//压缩css
 	]
 }

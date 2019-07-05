@@ -13,7 +13,8 @@
 			},
 			placeholder: String,
 			name: String
-		},
+        },
+        //inject: ['formItem'],
 		data() {
 			return {
 				multipleData: [],
@@ -26,6 +27,7 @@
 			}
 		},
 		render: function (h) {
+            
 			if (this.multiple === false) {
 				if (!(typeof(this.value) === 'string')) {
 					throw new TypeError('绑定值为字符串')
@@ -117,7 +119,8 @@
 				} else {
 					arr.splice(index, 1)
 				}
-				this.$emit('input', arr)
+                this.$emit('input', arr);
+                //this.formItem.$emit('blurValidator', arr);
 			}
 		}
 	}

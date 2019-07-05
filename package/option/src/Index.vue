@@ -18,7 +18,6 @@
 			}
 		},
 		render: function (h) {
-			
 			return h(
 				'option',
 				{

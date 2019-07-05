@@ -1,8 +1,7 @@
 
+import '../package/style/index.scss';
 import ButtonGroup from '../package/button-group/index.js'
 import Button from '../package/button/index.js'
-import CheckboxGroup from '../package/checkbox-group/index.js'
-import Checkbox from '../package/checkbox/index.js'
 import FormItem from '../package/form-item/index.js'
 import Form from '../package/form/index.js'
 import Input from '../package/input/index.js'
@@ -15,8 +14,6 @@ import Upload from '../package/upload/index.js'
 const packages = [
 	ButtonGroup,
     Button,
-    CheckboxGroup,
-    Checkbox,
     FormItem,
     Form,
     Input,
@@ -36,8 +33,6 @@ export default {
 	install,
 	ButtonGroup,
     Button,
-    CheckboxGroup,
-    Checkbox,
     FormItem,
     Form,
     Input,

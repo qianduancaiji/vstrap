@@ -18,6 +18,7 @@ let importTemplate = (packageName => {
 
 let entryTemplate = (() => (
 `
+import '../package/style/index.scss';
 ${importTemplate}
 
 const packages = [
