@@ -1,0 +1,18 @@
+<% for(let i = 0, len = data.packages.length; i < len; i++) { %>
+import <%= data.packages[i].name %> from './<%= data.packages[i].name %>.js';
+<% } %>
+
+const directives = [
+<% for(let i = 0, len = data.packages.length; i < len; i++) { %>
+    <%= data.packages[i].name %>,
+<% } %>
+]
+
+<% for(let i = 0, len = data.packages.length; i < len; i++) { %>
+
+<%= data.packages[i].name %>.install = function(Vue) {
+    Vue.directive('vs-<%= data.packages[i].name %>', <%= data.packages[i].name %>);
+}
+<% } %>
+
+export default directives;

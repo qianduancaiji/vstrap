@@ -21,6 +21,18 @@
             tree: {
                 type: Boolean,
                 default: false
+            },
+            rowKey: {
+                type: String,
+                default: 'id'
+            },
+            treeProps: {
+                type: Object,
+                default: function() {
+                    return {
+                        children: 'children'
+                    }
+                }
             }
         },
         provide: function() {
@@ -28,37 +40,57 @@
                 table: this
             }
         },
-
         components: {
             VsTbody,
             VsThead,
             TableCol
         },
         render() {
-           let colgroup = (
+            let rowKey = this.rowKey;
+            let colgroup = (
                <table-col slot="colgroup"></table-col>
-           )
+            );
+            let body = null;
+            if (this.data.length === 0) {
+                body = (
+                    <div class="vs-tbody-box">
+                        {
+                            <table class="table vs-table table-hover">
+                                <tr><td class="vs-align" col={ this.columns.length }>无数据</td></tr>
+                            </table>
+                        }
+                    </div>
+                )
+            } else {
+                body = (
+                    <div class="vs-tbody-box">
+                        {
+                            this.tree ?
+                            this.data.map((rowData, index) => {
+                                return (
+                                    <table class="table vs-table table-hover">
+                                        { colgroup }
+                                        <vs-tbody rowData={ rowData } key={ rowData[rowKey] }></vs-tbody>
+                                    </table>
+                                    
+                                )
+                            }) :
+                            <table class="table vs-table table-hover">
+                                { colgroup }
+                                <vs-tbody></vs-tbody>
+                            </table>
+                        }
+                    </div>
+                )
+            }
+            
             return (
-                <div>
+                <div class="vs-table-container">
                     <vs-thead>
                         { colgroup }
                     </vs-thead>
-                    
                     {
-                        this.tree ?
-                        this.data.map((rowData, index) => {
-                            return (
-                                <table class="table vs-table table-hover">
-                                    { colgroup }
-                                    <vs-tbody rowData={ rowData } key={ rowData.id }></vs-tbody>
-                                </table>
-                                
-                            )
-                        }) :
-                        <table class="table vs-table table-hover">
-                            { colgroup }
-                            <vs-tbody></vs-tbody>
-                        </table>
+                        body
                     }
                 </div>
             )

@@ -1,0 +1,26 @@
+
+import '../package/style/index.scss';
+
+import directives from '../src/directives/index.js';
+<% for(let i = 0, len = data.packages.length; i < len; i++) { %>
+import <%= data.packages[i].name %> from '../package/<%= data.packages[i].dir %>/index.js';
+<% } %>
+
+const packages = [
+<% for(let i = 0, len = data.packages.length; i < len; i++) { %>    
+	<%= data.packages[i].name %>,
+<% } %>
+]
+
+const install = function (Vue) {
+    packages.forEach(name => Vue.use(name));
+    directives.forEach(item => Vue.use(item));
+}
+
+export default {
+	version: '1.0.0',
+	install,
+<% for(let i = 0, len = data.packages.length; i < len; i++) { %>
+	<%= data.packages[i].name %>,
+<% } %>
+}

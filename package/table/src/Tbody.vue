@@ -14,6 +14,14 @@
         inject: {
             table: 'table'
         },
+        computed: {
+            rowKey() {
+                return this.table.rowKey;
+            },
+            childrenField() {
+                return this.table.treeProps.children;
+            }
+        },
         render(h) {
             let body = this.table.tree ? this.renderTreeBody() : this.renderBody();
             return (
@@ -93,12 +101,12 @@
                     data.forEach((item, index) => {
                         let $depth = depth === undefined ? 0 : depth;
                         item.$depth = $depth;
-                        let hasChildren = item.children && item.children.length !== 0;
+                        let hasChildren = item[_this.childrenField] && item[_this.childrenField].length !== 0;
                         item.$leaf = !hasChildren;
                         let vnode = _this.renderTreeTr(item)
                         treeVnodes.push(vnode)
                         if (hasChildren) {
-                            flat(item.children, ++$depth)
+                            flat(item[_this.childrenField], ++$depth)
                         }
                     })
                 }([this.rowData]))
@@ -109,7 +117,7 @@
             },
             renderTr(item) {
                 return (
-                    <tr key={ item.id }>
+                    <tr key={ item[this.rowKey] }>
                     {
                         this.table.columns.map((column, index) => { 
                             return (
@@ -125,7 +133,7 @@
             },
             renderTreeTr(item) {
                 return (
-                    <tr key={ item.id } 
+                    <tr key={ item[this.rowKey] } 
                         data-level={ item.$depth }
                         class={ { 'vs-hidden': !item.$depth == 0 } }>
                     {

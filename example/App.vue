@@ -25,15 +25,29 @@
             </vs-form-item>
             <vs-button @click.prevent="submit">提交</vs-button>
         </vs-form>
-
-        <!-- <vs-table :data="list" :columns="columns1" :tree="false"></vs-table> -->
+        <div><vs-button @click="addColumns">添加列</vs-button></div>
+        
+        <!-- <div v-vs-loading="loading">
+            11111111111111
+        </div> -->
+        <vs-table :data="list" 
+            :columns="columns1" 
+            :tree="true"
+            row-key="id"
+            :tree-props="{children: 'children1'}" 
+            v-vs-loading="loading" 
+            @click="addColumns"></vs-table>
 	</div>
 </template>
 <script> 
 	export default {
 		data() {
 			return {
-				
+                loading1: true,
+				loading: {
+                    visible: false,
+                    boxMinHeight: '150px', loadingText: '努力加载中......', background: ''
+                },
                 select: '1',
                 columns1: [
                     {
@@ -44,10 +58,6 @@
                     {
                         title: 'Age',
                         key: 'shortName'
-                    },
-                    {
-                        title: 'Address',
-                        key: 'value'
                     },
                     {
                         title: 'Address',
@@ -111,6 +121,36 @@
                         this.$refs['form'].clearValidate()
                     }, 1000)
                 });
+            },
+            addColumns() {
+                this.loading.visible = true;
+                setTimeout(() => {
+                    this.list = [
+                        {
+                            name: 'aaa',
+                            shortName: 'bbb',
+                            value: 'cccc',
+                            children1: [
+                                {
+                                    name: 'aaa',
+                                shortName: 'bbb',
+                                value: 'cccc'
+                                }
+                            ]
+                        },
+                        {
+                            name: 'aaa',
+                            shortName: 'bbb',
+                            value: 'cccc'
+                        },
+                        {
+                            name: 'aaa',
+                            shortName: 'bbb',
+                            value: 'cccc'
+                        }
+                    ]
+                    this.loading.visible = false;
+                }, 1000)
             }
 		}
 	}

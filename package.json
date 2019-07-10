@@ -1,16 +1,16 @@
 {
-    "annotation":  "完善了form文本框功能",
     "name": "vstrap",
-    "version": "1.0.8",
+    "version": "1.1.1",
     "description": "",
     "main": "dist/vstrap.js",
     "scripts": {
-        "test": "npm run build:entry & webpack-dev-server --open --config build/webpack.test.js",
+        "test": "npm run build:directives & npm run build:entry & webpack-dev-server --open --config build/webpack.test.js",
         "start": "webpack --mode development",
         "build": "webpack --mode production",
         "create": "node build/create-package.js",
         "build:entry": "node build/bin/build-entry.js",
-        "dist": "npm run build:entry & webpack --config build/webpack.dist.js",
+        "build:directives": "node build/bin/build-directive.js",
+        "dist": "npm run build:directives & npm run build:entry & webpack --config build/webpack.dist.js",
         "build:dist": "rollup --config build/rollup.config.js"
     },
     "keywords": [

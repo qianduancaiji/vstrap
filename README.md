@@ -45,34 +45,74 @@ Vue.use(VStrap)
   ```
   data: 数据列表
   columns：表格列配置
-  tree: 是否开启树形表格，children属性作为子数据
+  tree: 是否开启树形表格
+  row-key: vue列表渲染的key默认为id
+  tree-props: 接收对象{children: 'children1'}指定子数据属性，默认为children
   
-  <vs-table :data="list" :columns="columns1" :tree="false"></vs-table>
-  columns配置举例
+  <vs-table :data="list" 
+        :columns="columns1" 
+        :tree="true"
+        row-key="id"
+        :tree-props="{children: 'children1'}" 
+        v-vs-loading="loading" //表格加载图标，接收一个boolean或者配置对象
+        @click="addColumns">
+    </vs-table>
+  columns配置
   title: 列标题
   key: 数据字段
   width：列宽，不指定则平均分配
   自定义列模板使用渲染函数，h为createElement函数返回vnode，具体查看vue官网render函数，data为该行数据；
-  columns = [
-      {
-          title: 'Name',
-          key: 'name',
-          width: '500px'
-      },
-      {
-          title: 'Age',
-          key: 'shortName'
-      },
-      {
-          title: 'Address',
-          key: 'value',
-          render: (h, data) => { //注意this指向
-              return (
-                  <vs-button onClick={ this.handlClick.bind(this, data) }>提交</vs-button>
-              )
-          }
-      }
-  ],
+
+    loading: {
+        visible: false,
+        boxMinHeight: '150px', 
+        loadingText: 'aaaaaaaaaaaaa......', 
+        background: '#000'
+    },
+    columns1: [
+        {
+            title: 'Name',
+            key: 'name',
+            width: '500px'
+        },
+        {
+            title: 'Age',
+            key: 'shortName'
+        },
+        {
+            title: 'Address',
+            key: 'value',
+            render: (h, data) => {//注意this指向
+                return (
+                    <vs-button onClick={ this.handlClick.bind(this, data) }>提交</vs-button>
+                )
+            }
+        }
+    ],
+    list: [
+        {
+            name: 'aaa',
+            shortName: 'bbb',
+            value: 'cccc',
+            children1: [
+                {
+                    name: 'aaa',
+                    shortName: 'bbb',
+                    value: 'cccc'
+                }
+            ]
+        },
+        {
+            name: 'aaa',
+            shortName: 'bbb',
+            value: 'cccc'
+        },
+        {
+            name: 'aaa',
+            shortName: 'bbb',
+            value: 'cccc'
+        }
+    ]
   
   
   ```
