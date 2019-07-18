@@ -38,7 +38,7 @@
             this.$on('changeValidator', this.handleChangeValidator);
             this.$on('blurValidator', this.handleBlurValidator);
             this.form.$on('clearValidator', this.clearValidate);
-            this.form.$on('formSubmit', this.handleChangeValidator)
+            this.form.$on('formSubmit', this.handleBlurValidator)
             
             if (this.form.rules) {
                 let prop = this.prop;
@@ -51,7 +51,7 @@
             }
         },
         render: function(h) {
-            let feedbackClass = {
+            let feedbackClass = { 
                 'valid-feedback': this.validatorFields.status === 1,
                 'invalid-feedback': this.validatorFields.status === -1
             }
@@ -85,10 +85,10 @@
                 })
             },
             handleChangeValidator(value) { 
-                
                 if (this.validator.all === null) {
-                    return
+                    return;
                 }
+
                 // form组件提交前未验证的元素，则执行一次校验
                 // 如果校验过本次不再校验
                 if(value === undefined) {
@@ -105,10 +105,16 @@
             },
             handleBlurValidator(value) {
                 if (this.validator.all === null) {
-                    return
+                    return;
                 }
                 if(value === undefined) {
-                    value = this.form.model[this.prop]
+                    if (this.validatorFields.status === 0) {
+                        
+                        value = this.form.model[this.prop];
+                        
+                    } else {
+                        return this.notifyResult();
+                    }
                 }
                 this.verify(value, 'all');
             },

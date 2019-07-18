@@ -51,8 +51,10 @@ export default (function() {
         },
         open() {
             let loadingBox = this.loadingBox;
+            let el = this.element;
             if (loadingBox !== null) {
                 loadingBox.style.display = 'block';
+                el.style.minHeight = this.opitions.boxMinHeight;
             } else {
                 this.init();
             }
@@ -60,9 +62,11 @@ export default (function() {
         },
         close() {
             let loadingBox = this.loadingBox;
+            let el = this.element;
             if (loadingBox !== null) {
                 loadingBox.style.display = 'none';
-                loadingBox.style.minHeight = 'auto';
+                el.style.minHeight = 'auto';
+                
             }
             return this;
         },

@@ -3,12 +3,14 @@ import Loading from './../../package/loading/index.js';
 
 export default (function() {
     let els = [];
-    let type = function(value) {
+    let getValue = function(value) {
         if(value.constructor === Boolean) {
-            return 'bool';
+            return {
+                visible: value
+            }
         }
         if (value.constructor === Object) {
-            return 'object';
+            return value;
         }
         return null
     }
@@ -17,22 +19,18 @@ export default (function() {
             let isTable = el.classList.contains('vs-table-container');
             let initEl = isTable ? el.querySelector('.vs-tbody-box') : el;
             let load = null;
-            let value = binding.value;
-            if (type(value) === 'bool') {
-                load = new Loading(initEl);
-                if (!value) {
-                    load.close()
-                }
-            } else if(type(value) === 'object') {
-                /* 
-                    {boxMinHeight: '', loadingText: '', background: ''}
-                */
-               
+            let value = getValue(binding.value);
+
+            /* 
+                {boxMinHeight: '', loadingText: '', background: ''}
+            */
+            if (value !== null) {
                 load = new Loading(initEl, value);
                 if (!value.visible) {
                     load.close()
                 }
             }
+    
             els.push(load);
         },
         inserted: function () {},
@@ -41,21 +39,15 @@ export default (function() {
             let isTable = el.classList.contains('vs-table-container');
             let initEl = isTable ? el.querySelector('.vs-tbody-box') : el;
             let load = els.find(item => item.element === initEl);
-            let value = binding.value;
-            if (type(value) === 'bool') {
-                if (value) {
-                    load.open();
-                } else {
-                    load.close();
-                }
-            } else if(type(value) === 'object') {
+            let value = getValue(binding.value);
+            if (value !== null) {
                 if (value.visible) {
                     load.open();
                 } else {
                     load.close();
                 }
             }
-            
+                  
         },
         componentUpdated: function () {},
         unbind: function () {}

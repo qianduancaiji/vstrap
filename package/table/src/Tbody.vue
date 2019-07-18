@@ -34,6 +34,9 @@
             handleIconClick(e) {
                 let currEl = e.currentTarget;
                 let classList = currEl.classList;
+                if (!classList.contains('vs-tree-table-expend-icon')) {
+                    return;
+                }
                 let tr = this.getParents(currEl, 'tr');
                 if (classList.contains('vs-tree-table-expended-icon')) {
                     classList.remove('vs-tree-table-expended-icon')

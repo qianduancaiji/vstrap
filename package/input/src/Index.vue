@@ -2,7 +2,12 @@
 <script>
 	export default {
         name: 'VsInput',
-        inject: ['formItem'],
+        inject: {
+            formItem: {
+                from: 'formItem',
+                default: null
+            }
+        },
         props: {
             name: {
                 type: String
@@ -17,17 +22,22 @@
             type: {
                 type: String,
                 validator: function(value) {
-                    return ['text', 'password', 'textarea']
+                    return ['text', 'password', 'textarea', 'number']
                 },
                 default: 'text'
             }
         },
+        computed: {
+            validatorFields() {
+                return this.formItem !== null ? this.formItem.validatorFields : null;
+            }
+        },
         render: function(h) {
-            let validatorFields = this.formItem.validatorFields
+            let validatorFields = this.validatorFields;
             let inputClass = {
                 'form-control': 1,
-                'is-valid': validatorFields.status === 1,
-                'is-invalid': validatorFields.status === -1
+                'is-valid': validatorFields !== null && validatorFields.status === 1,
+                'is-invalid': validatorFields !== null && validatorFields.status === -1
             }
             let temp = this.type === 'textarea' ? (
                 <textarea
@@ -52,10 +62,23 @@
         methods: {
             handleInput(e) {
                 this.$emit('input', e.target.value);
-                this.formItem.$emit('changeValidator', e.target.value);
+                if (this.formItem !== null) {
+                    let value = e.target.value;
+                    if (this.type === 'number') {
+                        value = Number(value);
+                    }
+                    this.formItem.$emit('changeValidator', value);
+                }
+                
             },
             handleBlur(e) {
-                this.formItem.$emit('blurValidator', e.target.value);
+                if (this.formItem !== null) {
+                    let value = e.target.value;
+                    if (this.type === 'number') {
+                        value = Number(value);
+                    }
+                    this.formItem.$emit('blurValidator', value);
+                }
             }
         }
 	}

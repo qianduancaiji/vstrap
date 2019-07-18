@@ -1,108 +1,47 @@
 <template>
 	<div>
         <vs-form :model="form" :rules="rules" ref="form">
-            <vs-form-item label="姓名" prop="name" ref="nameItem">
+            <vs-form-item label="姓名" prop="name">
                 <vs-input type="textarea" v-model="form.name"></vs-input>
             </vs-form-item>
-            <vs-form-item label="年龄" prop="age">
-                <vs-input v-model="form.age"></vs-input>
-            </vs-form-item>
-            <vs-form-item label="sex" prop="sex">
-                <vs-select v-model="form.arr" multiple>
-                    <vs-option label="1">aaaa</vs-option>
-                    <vs-option label="2">bbbb</vs-option>
-                    <vs-option label="3">cccc</vs-option>
-                    <vs-option label="4">dddd</vs-option>
-                </vs-select>
-            </vs-form-item>
-            <vs-form-item label="sex" prop="sex">
-                <vs-select v-model="select">
-                    <vs-option label="1">1</vs-option>
-                    <vs-option>2</vs-option>
-                    <vs-option label="3">34</vs-option>
-                    <vs-option label="5">5</vs-option>
-                </vs-select>
+            <vs-form-item label="测试label" prop="radio">
+                <vs-radio-group v-model="select">
+                    <vs-radio value="1" name="aa" beauty>测试</vs-radio>
+                    <vs-radio value="2" name="aa" beauty>测试</vs-radio>  
+                </vs-radio-group>
             </vs-form-item>
             <vs-button @click.prevent="submit">提交</vs-button>
         </vs-form>
-        <div><vs-button @click="addColumns">添加列</vs-button></div>
-        
-        <!-- <div v-vs-loading="loading">
-            11111111111111
-        </div> -->
-        <vs-table :data="list" 
-            :columns="columns1" 
-            :tree="true"
-            row-key="id"
-            :tree-props="{children: 'children1'}" 
-            v-vs-loading="loading" 
-            @click="addColumns"></vs-table>
 	</div>
 </template>
 <script> 
 	export default {
 		data() {
-			return {
-                loading1: true,
-				loading: {
-                    visible: false,
-                    boxMinHeight: '150px', loadingText: '努力加载中......', background: ''
-                },
-                select: '1',
-                columns1: [
-                    {
-                        title: 'Name',
-                        key: 'name',
-                        width: '500px'
-                    },
-                    {
-                        title: 'Age',
-                        key: 'shortName'
-                    },
-                    {
-                        title: 'Address',
-                        key: 'value',
-                        render: (h, data) => {
-                            return (
-                                <vs-button onClick={ this.handlClick.bind(this, data) }>提交</vs-button>
-                            )
-                        }
-                    }
-                ],
-                list: [
-                    
-                ],
+			return { 
+                checkboxgroup: [1, 2],
+                select: '',
                 form: {
                     name: '',
                     age: 0,
                     arr: ['1','2','3']
                 },
                 rules: {
-                    name: {
+                    namea: {required: true, message: '请至少选择一个活动性质', trigger: 'change' },
+                    age: {
                         required: true,
+                        type: 'number',
+                        message: 'aaaaaaaaaaa'
+                    },
+                    radio: {
+                        required: true,
+                        message: 'aaaaaaaaaaa',
                         trigger: 'change'
                     },
-                    age: [
-                        {
-                            required: true,
-                            trigger: 'change'
-                        },
-                        {
-                            trigger: 'change',
-                            validator: (rule, value, callback) => {
-                                if (isNaN(value)) {
-                                    callback(new Error('不是数字'))
-                                } else {
-                                    callback()
-                                }
-                            }
-                        }
-                    ]
                 }
 			}
         },
         created() {
- 
+
         },
 		methods: {
             handlClick(data) {
@@ -117,40 +56,10 @@
             submit() {
                 this.$refs['form'].isSuccess(r => {
                     console.log(r);
-                    setTimeout(() => {
-                        this.$refs['form'].clearValidate()
-                    }, 1000)
+                    // setTimeout(() => {
+                    //     this.$refs['form'].clearValidate()
+                    // }, 1000)
                 });
-            },
-            addColumns() {
-                this.loading.visible = true;
-                setTimeout(() => {
-                    this.list = [
-                        {
-                            name: 'aaa',
-                            shortName: 'bbb',
-                            value: 'cccc',
-                            children1: [
-                                {
-                                    name: 'aaa',
-                                shortName: 'bbb',
-                                value: 'cccc'
-                                }
-                            ]
-                        },
-                        {
-                            name: 'aaa',
-                            shortName: 'bbb',
-                            value: 'cccc'
-                        },
-                        {
-                            name: 'aaa',
-                            shortName: 'bbb',
-                            value: 'cccc'
-                        }
-                    ]
-                    this.loading.visible = false;
-                }, 1000)
             }
 		}
 	}

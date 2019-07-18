@@ -7,6 +7,10 @@ import ButtonGroup from '../package/button-group/index.js';
 
 import Button from '../package/button/index.js';
 
+import CheckboxGroup from '../package/checkbox-group/index.js';
+
+import Checkbox from '../package/checkbox/index.js';
+
 import FormItem from '../package/form-item/index.js';
 
 import Form from '../package/form/index.js';
@@ -16,6 +20,10 @@ import Input from '../package/input/index.js';
 import Loading from '../package/loading/index.js';
 
 import Option from '../package/option/index.js';
+
+import RadioGroup from '../package/radio-group/index.js';
+
+import Radio from '../package/radio/index.js';
 
 import Select from '../package/select/index.js';
 
@@ -32,6 +40,10 @@ const packages = [
     
 	Button,
     
+	CheckboxGroup,
+    
+	Checkbox,
+    
 	FormItem,
     
 	Form,
@@ -41,6 +53,10 @@ const packages = [
 	Loading,
     
 	Option,
+    
+	RadioGroup,
+    
+	Radio,
     
 	Select,
     
@@ -65,6 +81,10 @@ export default {
 
 	Button,
 
+	CheckboxGroup,
+
+	Checkbox,
+
 	FormItem,
 
 	Form,
@@ -74,6 +94,10 @@ export default {
 	Loading,
 
 	Option,
+
+	RadioGroup,
+
+	Radio,
 
 	Select,
 

@@ -66,6 +66,9 @@
                 }
             },
             isSuccess(callback) {
+                if (this.verifyResult.length === 0) {
+                    return callback(true);
+                }
                 this.isSuccessCallback = callback;
                 this.$emit('formSubmit');
             }
